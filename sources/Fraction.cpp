@@ -1,6 +1,5 @@
 #include <iostream>
 #include "Fraction.hpp"
-#include <sys/time.h>
 using namespace std;
 
 
@@ -36,8 +35,8 @@ void Fraction::reduced() {
 
 Fraction::Fraction(float b)
 {
-    int gcd= Gcd(b*1000,1000);
-   this->numerator=(b*1000)/gcd;
+    int gcd= Gcd((int)(b*1000),1000);
+   this->numerator=((int)(b*1000))/gcd;
     this->denominator=1000/gcd;
 }
 
@@ -48,28 +47,27 @@ Fraction::Fraction(int a,int b){
     reduced();
 }
 
-//TODO
 
-Fraction operator+(const Fraction & a,const Fraction & b){
+Fraction const operator+(const Fraction & a,const Fraction & b){
     int numerator=a.numerator*b.denominator+ a.denominator* b.numerator;
     int denominator=a.denominator*b.denominator;
     Fraction t(numerator,denominator);
     return t;
 }
 
-Fraction operator*(const Fraction & a,const Fraction & b){
+Fraction const operator*(const Fraction & a,const Fraction & b){
     Fraction t(a.numerator*b.numerator, a.denominator*b.denominator);
     return t;
 }
 
-Fraction operator-(const Fraction & a,const Fraction & b){
+Fraction const operator-(const Fraction & a,const Fraction & b){
     int numerator=a.numerator*b.denominator-a.denominator* b.numerator;
     int denominator=a.denominator*b.denominator;
     Fraction t(numerator,denominator);
     return t;
 }
 
-Fraction operator/(const Fraction & a,const Fraction & b){
+Fraction const operator/(const Fraction & a,const Fraction & b){
     if(b.numerator==0){ throw std::invalid_argument("A number cannot be divided by 0");}
     Fraction t(a.numerator*b.denominator,a.denominator*b.numerator);
     return t;
@@ -99,61 +97,20 @@ const Fraction operator--(Fraction &b,int a){
 }
 
 istream& operator>>(istream  &cin,Fraction &b){
-    cin >> b.numerator >> b.denominator;
+    char c;
+    cin >> b.numerator >> c >> b.denominator;
     return cin;
 }
 
 
-ostream& operator<<(ostream &cout,const Fraction &b) {
-    cout << b.numerator << "/" << b.denominator;
-    return cout;
+ostream& operator<<(ostream &output,const Fraction &b) {
+    output << "["<<b.numerator << "/" << b.denominator<<"]";
+    return output;
 }
 
-bool operator==(const Fraction & a,const Fraction & b){return a.numerator*b.denominator==b.numerator*a.denominator;}
-bool operator>=(const Fraction & a,const Fraction & b){return a.numerator*b.denominator>=b.numerator*a.denominator;}
-bool operator>(const Fraction & a,const Fraction & b){ return a.numerator*b.denominator> b.numerator*a.denominator;}
-bool operator<=(const Fraction & a,const Fraction & b){return a.numerator*b.denominator<=b.numerator*a.denominator;}
-bool operator<(const Fraction & a,const Fraction & b){ return a.numerator*b.denominator< b.numerator*a.denominator;}
+const bool operator==(const Fraction & a,const Fraction & b){return a.numerator*b.denominator==b.numerator*a.denominator;}
+const bool operator>=(const Fraction & a,const Fraction & b){return a.numerator*b.denominator>=b.numerator*a.denominator;}
+const bool operator>(const Fraction & a,const Fraction & b){ return a.numerator*b.denominator> b.numerator*a.denominator;}
+const bool operator<=(const Fraction & a,const Fraction & b){return a.numerator*b.denominator<=b.numerator*a.denominator;}
+const bool operator<(const Fraction & a,const Fraction & b){ return a.numerator*b.denominator< b.numerator*a.denominator;}
 
-
-
-
-//bool Fraction::operator<(float b){return (((double)this->numerator)/ ((double)this->denominator))<b;}
-//
-//Fraction operator+(float a,Fraction b){ return b+a;}
-//Fraction operator*(float a,Fraction b){ return b*a;}
-//Fraction operator-(float a,Fraction b){ return ;}
-//Fraction operator/(float a,Fraction b){ return ;}
-//bool operator<(float a,Fraction b){
-//    return(a<(((double)b.numerator)/((double)b.denominator)));
-//}
-//
-//
-//bool operator<=(float a,Fraction b){
-//    return(a<=(((double)b.numerator)/((double)b.denominator)));
-//}
-//bool operator>(float a,Fraction b){
-//    return(a>(((double)b.numerator)/((double)b.denominator)));
-//}
-//bool operator>=(float a,Fraction b){
-//    return(a>=(((double)b.numerator)/((double)b.denominator)));
-//}
-//bool operator==(float a,Fraction b){
-//    return(a==(((double)b.numerator)/((double)b.denominator)));
-//}
-
-//
-//Fraction Fraction::operator+(float b){ Fraction t(1,1);return t;}
-//
-//Fraction Fraction::operator*(float b){ Fraction t(1,1);return t;}
-//
-//Fraction Fraction::operator-(float b){ Fraction t(1,1);return t;}
-//
-//Fraction Fraction::operator/(float b){ Fraction t(1,1);return t;}
-//
-//
-//
-//bool Fraction::operator<=(float b){return (((double)this->numerator)/ ((double)this->denominator))<=b;}
-//bool Fraction::operator>(float b){return (((double)this->numerator)/ ((double)this->denominator))>b;}
-//bool Fraction::operator>=(float b){return (((double)this->numerator)/ ((double)this->denominator))>=b;}
-//bool Fraction::operator==(float b){return (((double)this->numerator)/ ((double)this->denominator))==b;}

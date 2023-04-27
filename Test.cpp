@@ -53,7 +53,10 @@ TEST_CASE("Classic definition"){
     for (int i=0; i<2 ;i++) {
         gettimeofday(&time_now, nullptr);
         srand(time_now.tv_usec);
-        Fraction a(::rand() % 300, 2), b(::rand() % 200, 4), c(::rand() % 100, 5), one(1, 1), zero(0, 1);
+
+        Fraction a(::rand() % 300, 2), b(::rand() % 200, 4),
+        c(::rand() % 100, 5), one(1, 1), zero(0, 1);
+
         SUBCASE("Commutativity") {
             CHECK(a + b == b + a);
             CHECK(a * b == b * a);

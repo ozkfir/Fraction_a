@@ -24,51 +24,27 @@ public:
 
     friend Fraction& operator++(Fraction &a);
     friend const Fraction operator++(Fraction &b,int a);
+
     friend Fraction& operator--(Fraction& a);
     friend const Fraction operator--(Fraction &b,int a);
 
 
 
-    friend Fraction operator+(const Fraction & a,const Fraction & b);
-    friend Fraction operator*(const Fraction & a,const Fraction  & b);
-    friend Fraction operator-(const Fraction & a,const Fraction & b);
-    friend Fraction operator/(const Fraction & a,const Fraction & b);
+    friend const Fraction operator+(const Fraction & a,const Fraction & b);
+    friend const Fraction operator*(const Fraction & a,const Fraction  & b);
+    friend const Fraction operator-(const Fraction & a,const Fraction & b);
+    friend const Fraction operator/(const Fraction & a,const Fraction & b);
 
 
     friend istream &operator>>(istream  &input,Fraction &b);
     friend ostream &operator<<(ostream &output,const Fraction &b);
 
 
-    friend bool operator<(const Fraction & a,const  Fraction  & b);
-    friend bool operator<=(const Fraction & a,const Fraction & b);
-    friend bool operator>(const Fraction & a,const Fraction & b);
-    friend bool operator>=(const Fraction & a,const Fraction & b);
-    friend bool operator==(const Fraction & a,const Fraction & b);
+    friend const bool operator<(const Fraction & a,const  Fraction  & b);
+    friend const bool operator<=(const Fraction & a,const Fraction & b);
+    friend const bool operator>(const Fraction & a,const Fraction & b);
+    friend const bool operator>=(const Fraction & a,const Fraction & b);
+    friend const bool operator==(const Fraction & a,const Fraction & b);
 
     };
 #endif
-
-//    bool operator<(float b);
-//    bool operator<=(float b);
-//    bool operator>(float b);
-//    bool operator>=(float b);
-//    bool operator==(float b);
-
-//    Fraction operator+(float b);
-//    Fraction operator*(float b);
-//    Fraction operator-(float b);
-//    Fraction operator/(float b);
-
-
-//    friend Fraction operator+(float a,Fraction b);
-//    friend Fraction operator*(Fraction a,Fraction b);
-
-
-
-//    friend Fraction operator-(float a,Fraction b);
-//    friend Fraction operator/(float a,Fraction b);
-//    friend  bool operator<(float a,Fraction b);
-//    friend bool operator<=(float a,Fraction b);
-//    friend bool operator>(float a,Fraction b);
-//    friend bool operator>=(float a,Fraction b);
-//    friend bool operator==(float a,Fraction b);

@@ -14,7 +14,12 @@ void Fraction::negtive(){
     }
 }
 
-
+int Fraction::getNumerator(){
+    return this->numerator;
+}
+int Fraction::getDenominator(){
+    return this->denominator;
+}
 int Gcd(int a, int b)
 {
     if (b == 0)
@@ -40,11 +45,17 @@ Fraction::Fraction(float b)
     this->denominator=1000/gcd;
 }
 
+Fraction::Fraction()
+{
+    this->numerator=1;
+    this->denominator=1;
+}
+
 Fraction::Fraction(int a,int b){
-    if(b==0){ throw std::invalid_argument("A number cannot be divided by 0");}
+    if(b==0){ throw runtime_error("Math error: Attempted to divide by Zero\n");}
     this->numerator=a;
     this->denominator=b;
-    reduced();
+    this->reduced();
 }
 
 
@@ -68,7 +79,7 @@ Fraction const operator-(const Fraction & a,const Fraction & b){
 }
 
 Fraction const operator/(const Fraction & a,const Fraction & b){
-    if(b.numerator==0){ throw std::invalid_argument("A number cannot be divided by 0");}
+    if(b.numerator==0){ throw runtime_error("Math error: Attempted to divide by Zero\n");}
     Fraction t(a.numerator*b.denominator,a.denominator*b.numerator);
     return t;
 }
@@ -97,20 +108,40 @@ const Fraction operator--(Fraction &b,int a){
 }
 
 istream& operator>>(istream  &cin,Fraction &b){
+    if((cin.gcount()%2)==1){throw  std::invalid_argument("runtime");}
     char c;
-    cin >> b.numerator >> c >> b.denominator;
+    cin >> b.numerator >> b.denominator;
+    if(b.denominator==0){ throw runtime_error("Math error: Attempted to divide by Zero\n");}
+    b.reduced();
     return cin;
 }
 
 
 ostream& operator<<(ostream &output,const Fraction &b) {
-    output << "["<<b.numerator << "/" << b.denominator<<"]";
+    output << ""<<b.numerator << "/" << b.denominator<<"";
     return output;
 }
 
-const bool operator==(const Fraction & a,const Fraction & b){return a.numerator*b.denominator==b.numerator*a.denominator;}
-const bool operator>=(const Fraction & a,const Fraction & b){return a.numerator*b.denominator>=b.numerator*a.denominator;}
-const bool operator>(const Fraction & a,const Fraction & b){ return a.numerator*b.denominator> b.numerator*a.denominator;}
-const bool operator<=(const Fraction & a,const Fraction & b){return a.numerator*b.denominator<=b.numerator*a.denominator;}
-const bool operator<(const Fraction & a,const Fraction & b){ return a.numerator*b.denominator< b.numerator*a.denominator;}
+const bool operator==(const Fraction & a,const Fraction & b){
+    int gcd_a=Gcd(a.numerator,a.denominator);
+    int gcd_b=Gcd(b.numerator,b.denominator);
+    return (a.numerator/gcd_a)*(b.denominator/gcd_b)==(b.numerator/gcd_a)*(a.denominator/gcd_b);}
+const bool operator>=(const Fraction & a,const Fraction & b){
+    int gcd_a=Gcd(a.numerator,a.denominator);
+    int gcd_b=Gcd(b.numerator,b.denominator);
+    return (a.numerator/gcd_a)*(b.denominator/gcd_b)>=(b.numerator/gcd_a)*(a.denominator/gcd_b);}
+
+const bool operator>(const Fraction & a,const Fraction & b){
+    int gcd_a=Gcd(a.numerator,a.denominator);
+    int gcd_b=Gcd(b.numerator,b.denominator);
+    return (a.numerator/gcd_a)*(b.denominator/gcd_b)>(b.numerator/gcd_a)*(a.denominator/gcd_b);}
+const bool operator<=(const Fraction & a,const Fraction & b){
+    int gcd_a=Gcd(a.numerator,a.denominator);
+    int gcd_b=Gcd(b.numerator,b.denominator);
+    return (a.numerator/gcd_a)*(b.denominator/gcd_b)<=(b.numerator/gcd_a)*(a.denominator/gcd_b);}
+const bool operator<(const Fraction & a,const Fraction & b){
+    int gcd_a=Gcd(a.numerator,a.denominator);
+    int gcd_b=Gcd(b.numerator,b.denominator);
+    return (a.numerator/gcd_a)*(b.denominator/gcd_b)<(b.numerator/gcd_a)*(a.denominator/gcd_b);}
+
 

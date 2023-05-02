@@ -20,7 +20,10 @@ private:
 public:
     Fraction(int a,int b);
     Fraction(float b);
+    Fraction();
 
+    int getNumerator();
+    int getDenominator();
 
     friend Fraction& operator++(Fraction &a);
     friend const Fraction operator++(Fraction &b,int a);
